@@ -1,0 +1,42 @@
+.wrapper {
+  .content {
+    margin-bottom: 2.5rem;
+    width: 100%;
+    color: #4a5464;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    padding: 10px;
+    & .icon {
+      cursor: pointer;
+      padding: 3px 7px;
+      width: 31px;
+      border-radius: 3px;
+      &:hover {
+        background-color: #00b3ff;
+        color: white;
+      }
+    }
+    & .progressContainer {
+      padding-left: 5px;
+      flex: 1;
+      & input {
+        height: 6px;
+        margin: auto;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: calc(100% - 10px);
+        margin-right: 10px;
+      }
+    }
+  }
+  .volume {
+    margin-left: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}

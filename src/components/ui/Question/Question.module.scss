@@ -1,0 +1,40 @@
+.wrapper {
+  display: flex;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+  .number {
+    margin-right: 1rem;
+    & > strong {
+      border-radius: 50%;
+      background-color: #e8f2ff;
+      color: #35509a;
+      width: 35px;
+      height: 35px;
+      line-height: 35px;
+      font-size: 1.5rem;
+      text-align: center;
+      display: inline-block;
+    }
+  }
+  .content {
+    width: 100%;
+    & > div {
+      font-size: 1.5rem;
+      line-height: 2rem;
+      margin-bottom: 0.5rem;
+    }
+    .answers {
+      position: relative;
+      display: block;
+      & > div {
+        display: flex;
+        align-items: center;
+        font-size: 1.5rem;
+        line-height: 2rem;
+      }
+      & label {
+        margin-left: 10px;
+      }
+    }
+  }
+}

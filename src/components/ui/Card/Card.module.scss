@@ -1,0 +1,49 @@
+.wrapper {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 0.45rem;
+  border: 1px solid #e0e0e0;
+  margin-bottom: 2rem;
+  box-shadow: 0 4px 0 0 rgba(143, 156, 173, 0.2);
+  &:hover {
+    box-shadow: 0 1px 2px 0 rgba(60, 64, 67, 0.2),
+      0 2px 6px 2px rgba(60, 64, 67, 0.15);
+    transform: translateY(-2px);
+    transition: all 0.4s;
+  }
+  & > div {
+    cursor: pointer;
+    color: #1e2022 !important;
+    & > h2 {
+      font-size: 1.6rem;
+      margin-bottom: 0.25rem;
+      overflow: hidden;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      -webkit-box-orient: vertical;
+      font-weight: 600;
+    }
+  }
+}
+.testWrapper {
+  color: #677788;
+  & span {
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #677788;
+    font-weight: 500;
+    line-height: 1.4;
+  }
+}
+.btnWrapper {
+  display: flex;
+  justify-content: center;
+  & button {
+    font-size: 1.4rem;
+    &:hover {
+      color: #fff;
+      background-color: #35509a;
+      border-color: #35509a;
+    }
+  }
+}

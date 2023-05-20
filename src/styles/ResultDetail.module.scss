@@ -1,0 +1,91 @@
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & h2 {
+    font-weight: 600;
+    margin: 0;
+  }
+  & button {
+    margin-left: 13px;
+    font-size: 1.3rem;
+    color: black;
+    font-weight: 600;
+    &:hover {
+      color: white !important;
+      background-color: #2e4687 !important;
+      border-color: #283c74 !important;
+    }
+  }
+}
+.testWrapper {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  margin: 20px 10px 0;
+  & .testContent {
+    max-width: 100%;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    min-width: 0;
+
+    background-color: #fff;
+    padding: 1.6rem;
+    border-radius: 0.45rem;
+    border: 1px solid #e0e0e0;
+    box-shadow: 0 4px 0 0 rgba(143, 156, 173, 0.2);
+  }
+  .nav {
+    .itemLink {
+      // padding: 4px 15px;
+      margin-right: 0.8rem;
+      background-color: #f8f9fa;
+      border-radius: 25px;
+      white-space: nowrap;
+      color: #1a1a1a;
+      &:hover {
+        background-color: #e7eaf3 !important;
+      }
+      & > a {
+        color: #1a1a1a;
+      }
+      .navItemLink.active {
+        background-color: #e8f2ff !important;
+        color: #35509a !important;
+        font-weight: 500;
+      }
+    }
+  }
+}
+
+.naviWrapper {
+  width: 200px;
+  min-width: 200px;
+  margin-left: 1rem;
+  margin-bottom: 1.5rem;
+  will-change: min-height;
+  z-index: 99;
+  .naviInner {
+    margin-right: 16px;
+    will-change: position, transform;
+    padding: 1rem;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.08);
+    position: relative;
+    transform: translate3d(0px, 0px, 0px);
+    .navMain {
+      & > button {
+        width: 100%;
+        margin: 14px 0;
+        font-weight: 600;
+        color: #35509a;
+        border-color: #35509a;
+        &:hover {
+          color: #fff;
+          background-color: #35509a;
+          border-color: #35509a;
+        }
+      }
+    }
+  }
+}
