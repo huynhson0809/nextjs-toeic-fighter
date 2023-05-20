@@ -18,7 +18,7 @@ const FullTest = () => {
             })
     }, []);
     return (
-        <Container fluid="md">
+        <Container fluid="md" style={{ marginTop: "20px" }}>
             <Row>
                 {fullTest &&
                     fullTest.length > 0 &&

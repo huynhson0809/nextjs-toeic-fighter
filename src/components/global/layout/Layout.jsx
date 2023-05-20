@@ -13,7 +13,7 @@ const LayoutComponent = (props) => {
     return (
       <Layout className="App" theme="light">
         <Header />
-        <Content className="App-content" style={{ height: "auto" }}>
+        <Content className="App-content" style={{ height: "auto",paddingTop:"60px" }}>
           {children}
         </Content>
         <Footer />
@@ -23,7 +23,7 @@ const LayoutComponent = (props) => {
   else {
     return (
       <Layout className="App" theme="light">
-        <Content className="App-content" style={{ height: "auto" }}>
+        <Content className="App-content" style={{ height: "auto",paddingTop:"60px" }}>
           {children}
         </Content>
         <Footer />
