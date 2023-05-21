@@ -9,7 +9,7 @@ const { Content } = Layout;
 const LayoutComponent = (props) => {
   const { children } = props;
   const router = useRouter();
-  if((router.pathname !=="/login")&& ( router.pathname !=="/signup") &&(router.pathname !=="/reset-password")){
+  if((router.pathname !=="/login")&& ( router.pathname !=="/signup") &&(router.pathname !=="/resetpassword")){
     return (
       <Layout className="App" theme="light">
         <Header />

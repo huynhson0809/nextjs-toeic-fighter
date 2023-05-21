@@ -9,7 +9,9 @@ import part5 from "./part5.png";
 import part6 from "./part6.png";
 import part7 from "./part7.png";
 import logofinal from './logo-final.png'
+import logofinalgray from './logo-final-gray.png'
 import user from './user_icon.webp'
+import bgHomepage from './bg1.jpg.webp'
 
 const images = {
     logo: logo,
@@ -23,7 +25,9 @@ const images = {
     part6: part6,
     part7: part7,
     logofinal: logofinal,
-    user: user
+    user: user,
+    bgHomepage: bgHomepage,
+    logofinalgray: logofinalgray
 };
 
 export default images;

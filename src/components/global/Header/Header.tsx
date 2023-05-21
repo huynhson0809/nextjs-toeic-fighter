@@ -1,17 +1,16 @@
-import { faLock, faRightFromBracket, faRocket, faTrashCan, faUser } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
 import { FC, useEffect, useState } from 'react';
-import Modal from 'react-bootstrap/Modal';
 import "bootstrap/dist/css/bootstrap.min.css";
 
 import images from '@/assets/images';
-import { Button } from 'react-bootstrap';
+import { Button, Dropdown, DropdownButton } from 'react-bootstrap';
 import styles from './Header.module.scss';
 import Link from 'next/link';
 import Image from 'next/image';
 import _ from 'lodash'
-import { useRouter } from 'next/router';;
+import { User } from '@/components/ui';
+import { useCookies } from 'react-cookie';
+;
 
 
 const cx = classNames.bind(styles);
@@ -37,8 +36,10 @@ const Header: FC<HeaderProps> = ({ ...props }) => {
             url: '/about'
         },
     ]
+    const [cookies, setCookie, removeCookie] = useCookies(['user']);
+    const currentUser = cookies ? true : false
+    const [showDropdown, setShowDropdown] = useState(false)
 
-    const currentUser = true
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -62,16 +63,33 @@ const Header: FC<HeaderProps> = ({ ...props }) => {
                             !currentUser ?
                                 <li className={styles.authen}>
                                     <Button variant="primary" href="/login" size="lg">Login</Button>
-                                    <Button variant="secondary" href="/register" size="lg">Register</Button>
+                                    <Button variant="outline-secondary" href="/signup" size="lg">Register</Button>
                                 </li>
                                 :
-                                <li className={styles.user}>
-                                    <a>
-                                        <span>
-                                            <Image src={images.user} alt="user image" />
-                                        </span>
-                                    </a>
-                                </li>
+                                // <li className={styles.user} id="dropdown-basic-button" title="Dropdown button" onClick={() => setShowDropdown(!showDropdown)}>
+                                //     <a>
+                                //         <span>
+                                //             <Image src={images.user} alt="user image" />
+                                //         </span>
+                                //     </a>
+                                // </li>
+                                <>
+                                    <Dropdown>
+                                        <Dropdown.Toggle as={User} id="dropdown-custom-components">
+                                            <>
+                                                <span>
+                                                    <Image src={images.user} alt="user image" />
+                                                </span>
+                                            </>
+                                        </Dropdown.Toggle>
+
+                                        <Dropdown.Menu>
+                                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
+                                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                            <Dropdown.Divider />
+                                            <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                                        </Dropdown.Menu>
+                                    </Dropdown></>
                         }
                     </ul>
                 </div>

@@ -136,7 +136,7 @@ a[href] {
 }
 
 .login-wrapper {
-  margin-bottom: 50px;
+  // margin-bottom: 50px;
   // background-color: rgb(186, 73, 73);
   min-height: 100vh;
   width: 100%;
@@ -146,7 +146,7 @@ a[href] {
   box-sizing: border-box;
   padding-top: env(safe-area-inset-top);
   .login-inner {
-    min-height: calc(100vh - 5px);
+    min-height: calc(100vh - 125px);
     display: flex;
     -webkit-box-pack: center;
     justify-content: center;
@@ -163,7 +163,7 @@ a[href] {
       align-items: center;
       flex-direction: column;
       width: 100%;
-      padding: 30px 0px;
+      // padding: 30px 0px;
       .logo {
         display: inline-block;
         color: white;
@@ -174,22 +174,19 @@ a[href] {
           color: white;
         }
       }
-      .login-logo-icon {
-        width: 280px;
-        height: 64px;
-        margin-right: 4px;
-        overflow-clip-margin: content-box;
-        overflow: clip;
+      .login-logo-icon,
+      .login-logo-icon-after {
+        height: 122px !important;
       }
       .login-title {
         text-align: center;
         font-size: 18px;
         font-weight: 600;
-        color: white;
+        color: black;
         opacity: 0.8;
         letter-spacing: 0.05em;
         margin-top: 18px;
-        margin-bottom: 38px;
+        margin-bottom: 18px;
       }
     }
   }
@@ -200,6 +197,7 @@ a[href] {
   box-shadow: rgb(196, 196, 196) 0px 1px 0px;
   padding: 8px 18px 32px;
   box-sizing: border-box;
+  border: 1px solid rgb(0 0 0 / 10%);
   // width: 100%;
   width: 350px;
   & > p {
@@ -310,7 +308,8 @@ a[href] {
 .login-sign-up {
   margin-top: 24px;
   font-size: 16px;
-  color: rgba(255, 255, 255, 0.8);
+  // color: rgba(255, 255, 255, 0.8);
+  color: rgba(0, 0, 0, 0.4);
   text-align: center;
   display: flex;
   -webkit-box-pack: center;
@@ -337,17 +336,18 @@ a[href] {
     font-weight: bold;
     letter-spacing: 0.02em;
     text-decoration: underline;
-    color: white;
+    // color: white;
+
     &:hover {
       opacity: 1 !important;
-      background-color: rgb(186, 73, 73);
-      border-color: rgb(186, 73, 73);
+      background-color: rgba(0, 0, 0, 0.4);
+      border-color: rgba(0, 0, 0, 0.4);
       // color: rgba(0, 0, 0, 0.4);
     }
     &:active {
       transform: translateY(2px);
       box-shadow: none;
-      background-color: rgb(186, 73, 73) !important;
+      background-color: rgba(0, 0, 0, 0.4) !important;
       color: white !important;
     }
   }
@@ -364,18 +364,18 @@ a[href] {
   padding: 30px 0px;
   & .logo {
     & img {
-      color: transparent;
-      opacity: 0.9;
-      animation: 1s ease-in-out 0s 1 normal none running fadein-up;
-      margin-bottom: 28px;
-      width: 160px;
-      height: 160px;
+      // color: transparent;
+      // opacity: 0.9;
+      // animation: 1s ease-in-out 0s 1 normal none running fadein-up;
+      // margin-bottom: 28px;
+      // width: 160px;
+      // height: 160px;
     }
   }
   & .login-sc-title {
     font-size: 26px;
     font-weight: 600;
-    color: white;
+    color: #57af57;
     text-align: center;
     margin-bottom: 18px;
     animation: 1s ease-in-out 0s 1 normal none running fadein-up;
@@ -386,7 +386,7 @@ a[href] {
     line-height: 1.5em;
     max-width: 360px;
     animation: 1s ease-in-out 0s 1 normal none running fadein-up;
-    color: white;
+    color: #505050;
     opacity: 0.8;
   }
 }
@@ -437,4 +437,14 @@ a[href] {
   font-weight: 700;
   text-align: center;
   margin-bottom: 24px;
+}
+
+.my-masonry-grid {
+  display: flex;
+  gap: 10px;
+}
+
+.my-masonry-grid_column {
+  border-left: 20px solid transparent;
+  background-clip: padding-box;
 }

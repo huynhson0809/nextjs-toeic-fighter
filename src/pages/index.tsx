@@ -2,9 +2,78 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '@/styles/Home.module.scss'
 import { Layout } from "antd";
+import { Button, Col, Container, Row } from 'react-bootstrap';
+import { motion } from "framer-motion";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons';
+import { CardFeature, CardFeedback } from '@/components/ui';
+import Masonry from 'react-masonry-css';
 
 
 export default function Home() {
+  const feedbacks = [
+    {
+      id: 1,
+      name: "Huynh Ngoc Son",
+      username: "huynhson89",
+      time: "Sep 4, 2019",
+      feedback: `<p>People throw React component libraries and design systems at me regularly. <br></br>
+      This might be the best one I've seen. The APIs are simple but composable and the accessibility on the couple components I looked is complete. <br></br>
+      Great work @thesegunadebayo, really inspiring work<br></br>
+      </p>`
+
+    },
+    {
+      id: 2,
+      name: "Huynh Ngoc Lam",
+      username: "huynhson89",
+      time: "Sep 4, 2019",
+      feedback: `<p>Chakra UI has become part of our default stack for React apps, and we're happy to help sponsor the project. <br></br>
+      Chakra saves our team tons of time, is well designed and documented, has solid accessibility defaults, and looks great out of the box.</p>`
+
+    },
+    {
+      id: 3,
+      name: "Huynh Huy Hoang",
+      username: "huyhoang34",
+      time: "Sep 4, 2034",
+      feedback: `<p>I've just become a sponsor of @thesegunadebayo's Chakra UI. <br></br>
+      It is a really nice React component library that's properly open source (MIT). <br></br>
+      https://chakra-ui.com You should check it out!</p>`
+
+    },
+    {
+      id: 4,
+      name: "Huynh Ngoc Son",
+      username: "huynhson89",
+      time: "Sep 4, 2019",
+      feedback: `<p>People throw React component libraries and design systems at me regularly. <br></br>
+      This might be the best one I've seen. The APIs are simple but composable and the accessibility on the couple components I looked is complete. <br></br>
+      Great work @thesegunadebayo, really inspiring work<br></br>
+      </p>`
+
+    },
+    {
+      id: 5,
+      name: "Huynh Ngoc Lam",
+      username: "huynhson89",
+      time: "Sep 4, 2019",
+      feedback: `<p>Chakra UI has become part of our default stack for React apps, and we're happy to help sponsor the project. <br></br>
+      Chakra saves our team tons of time, is well designed and documented, has solid accessibility defaults, and looks great out of the box.</p>`
+
+    },
+    {
+      id: 6,
+      name: "Huynh Huy Hoang",
+      username: "huyhoang34",
+      time: "Sep 4, 2034",
+      feedback: `<p>I've just become a sponsor of @thesegunadebayo's Chakra UI. <br></br>
+      It is a really nice React component library that's properly open source (MIT). <br></br>
+      https://chakra-ui.com You should check it out!</p>`
+
+    },
+  ]
+
   return (
     <>
       <Head>
@@ -14,7 +83,75 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <main className={`${styles.main}`}>
-        <h1>Hello ae</h1>
+        <section className={styles.heroArea} style={{ backgroundImage: `url("https://preview.colorlib.com/theme/clever/img/bg-img/bg1.jpg.webp")` }}>
+          <Container>
+            <Row>
+              <Col sm={12}>
+                <div className={styles.heroContent}>
+                  <h2>
+                    Let&apos;s Study Together
+                  </h2>
+                  <a href="/login">Get Started</a>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        </section>
+        <section className={styles.expWrapper}>
+          <Container fluid="md">
+            <Row>
+              <Col sm={12}>
+                <div className={styles.exp}>
+                  <h2 >An experience you&apos;d expect from a design system</h2>
+                  <p>Opinionated and designed for daily use.</p>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+              <Col sm={4} style={{ marginBottom: "20px" }}>
+                <CardFeature />
+              </Col>
+            </Row>
+          </Container>
+        </section>
+
+        <section className={styles.feedback}>
+          <div className={styles.fbWrapper}>
+            <div className={styles.fbInner}>
+              <h2>Loved by product people like you</h2>
+              <div className={styles.fbContent}>
+                <Masonry
+                  breakpointCols={3}
+                  className="my-masonry-grid"
+                  columnClassName="my-masonry-grid_column">
+                  {
+                    feedbacks && feedbacks.length > 0 && feedbacks.map((item: any) => {
+                      return (
+                        <CardFeedback key={item.id} name={item.name} username={item.username} feedback={item.feedback} />
+                      )
+                    })
+                  }
+
+                </Masonry>
+              </div>
+            </div>
+          </div>
+        </section>
       </main>
     </>
   )

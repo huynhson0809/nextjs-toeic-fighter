@@ -7,6 +7,10 @@ const nextConfig = {
         source: "/api/:slug*",
         destination: "http://tinhoccaogiaphat.com/:slug*",
       },
+      {
+        source: "/auth/:slug",
+        destination: "http://tinhoccaogiaphat.com/auth/:slug",
+      },
     ];
   },
   webpack(config, options) {
