@@ -49,12 +49,12 @@ const MiniTest = () => {
     ];
     return (
         <Container>
-            <h2 className="headingMiniTest">Mini Test</h2>
+            <h2 className="title-list-test">List MiniTest</h2>
             <Row>
                 {listMiniTest &&
                     listMiniTest.map((item, index) => {
                         return (
-                            <Col md={3} key={index}>
+                            <Col sm={6} md={3} key={index}>
                                 <CardChoosePart
                                     title={item.title}
                                     des={item.des}

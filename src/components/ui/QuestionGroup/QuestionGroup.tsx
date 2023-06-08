@@ -21,6 +21,7 @@ const QuestionGroup = ({ ...props }) => {
     resultDetail,
   } = props;
 
+
   const handleClickNext = () => {
     onSelectTab(indexTab + 1);
   };
@@ -64,7 +65,6 @@ const QuestionGroup = ({ ...props }) => {
                                     : "",
                               }}
                             >
-                              {/* {item?.detail} */}
                             </div>
                           ) : (
                             <></>
@@ -75,7 +75,6 @@ const QuestionGroup = ({ ...props }) => {
                                 __html: item?.contentQuestion,
                               }}
                             >
-                              {/* {item?.detail} */}
                             </div>
                           ) : (
                             <></>
@@ -111,7 +110,7 @@ const QuestionGroup = ({ ...props }) => {
                                       `<p>Hi&#7879;n t&#7841;i ch&#432;a c&oacute; l&#7901;i gi&#7843;i chi ti&#7871;t cho c&acirc;u h&#7887;i n&agrave;y</p>`,
                                   }}
                                 >
-                                  {/* {item?.detail} */}
+
                                 </div>
                               </>
                             ) : (
@@ -138,12 +137,36 @@ const QuestionGroup = ({ ...props }) => {
                   <div className={styles.contextWrapper}>
                     <div className={styles.contextContent}>
                       {!isFullTest && ques?.isListening ? (
-                        <Audio />
+                        ques?.assets?.[0]?.url ||
+                          ques?.assets?.[1]?.url ||
+                          ques?.assets?.url ? (
+                          <Audio
+                            source={
+                              ques?.assets?.[0]?.url &&
+                                ques?.assets?.[0]?.type === "AUDIO"
+                                ? ques?.assets?.[0]?.url
+                                : ques?.assets?.[1]?.url &&
+                                  ques?.assets?.[1]?.type === "AUDIO"
+                                  ? ques?.assets?.[1]?.url
+                                  : ques?.assets?.url &&
+                                    ques?.assets?.type === "AUDIO"
+                                    ? ques?.assets?.url
+                                    : ""
+                            }
+                          />
+                        ) : (
+                          <Audio />
+                        )
                       ) : (
                         <></>
                       )}
-                      {ques?.assets?.[0]?.url ? (
-                        <Image src={ques?.assets?.[0]?.url} alt="image" className={styles.imageQuestion} />
+                      {ques?.assets?.[0]?.url &&
+                        ques?.assets?.[0]?.type === "IMAGE" ? (
+                        <Image
+                          src={ques?.assets?.[0]?.url}
+                          alt="image"
+                          className={styles.imageQuestion}
+                        />
                       ) : (
                         <></>
                       )}

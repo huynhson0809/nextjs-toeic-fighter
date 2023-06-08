@@ -12,6 +12,7 @@ import {
 } from "@/components/ui";
 
 import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const DoMiniTest = () => {
     const router = useRouter()
@@ -21,9 +22,12 @@ const DoMiniTest = () => {
     const [listResult, setListResult] = useState([]);
     const [isTimeup, setIsTimeup] = useState(false);
     const timer = useRef(0);
-
-
+    const [idPart, setIdPart] = useState()
     const [listPart, setListPart] = useState([]);
+    const timeStart = useRef<any>();
+    const timeEnd = useRef<any>();
+    const [cookies, setCookie, removeCookie] = useCookies(["idMiniTest", "user"]);
+
     useEffect(() => {
         if (numpart && partId) {
             axios
@@ -38,6 +42,8 @@ const DoMiniTest = () => {
                 )
                 .then((response) => {
                     const res = response?.data?.data[0];
+                    console.log(response?.data?.data[0]);
+                    setIdPart(res?.parts[0]?.id)
                     setListPart(res?.parts);
                     setTitle(response?.data?.data[0]?.name)
                 })
@@ -48,9 +54,35 @@ const DoMiniTest = () => {
     }, [numpart, partId]);
 
 
-    const handleClickSubmit = () => {
+    const handleClickSubmit = async () => {
         if (window.confirm("Bạn có chắc chắn muốn nộp bài?") === true) {
-            router.push(`/minitest/${numpart}/${partId}/result`);
+            const userId = cookies.user?.userId
+            timeEnd.current = new Date().toUTCString();
+            const dataSubmit = {
+                type: "SKILL_TEST",
+                idTest: idPart,
+                userResult: listResult,
+                timeStart: timeStart.current,
+                timeEnd: timeEnd.current,
+            };
+            await axios
+                .post(
+                    `/api/tests/result/${userId}`,
+                    dataSubmit
+                )
+                .then((res) => {
+                    console.log("res", res.data);
+                    if (res.data.statusCode !== 500) {
+                        router.push(`/minitest/${numpart}/${partId}/result`);
+                        if (cookies.idMiniTest) {
+                            removeCookie("idMiniTest");
+                        }
+                        setCookie("idMiniTest", res.data.testId);
+                    }
+                })
+                .catch((err) => {
+                    console.log("error in request", err);
+                });
         }
     };
     const handleTimeup = useCallback(() => {
@@ -120,9 +152,7 @@ const DoMiniTest = () => {
     return (
         <Container fluid>
             <div className={styles.heading}>
-                <h2>
-                    PART {numpart} - {title}
-                </h2>
+                <h2 className="title-list-test">PART {numpart} - {title}</h2>
                 <Button variant="outline-primary" onClick={handleClickExit}>
                     Thoát
                 </Button>

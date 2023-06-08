@@ -10,6 +10,7 @@ import Image from 'next/image';
 import _ from 'lodash'
 import { User } from '@/components/ui';
 import { useCookies } from 'react-cookie';
+import { useRouter } from 'next/router';
 ;
 
 
@@ -32,14 +33,28 @@ const Header: FC<HeaderProps> = ({ ...props }) => {
         },
         {
             id: 3,
+            title: 'Blog',
+            url: '/blog'
+        },
+        {
+            id: 4,
             title: 'About',
             url: '/about'
         },
     ]
     const [cookies, setCookie, removeCookie] = useCookies(['user']);
-    const currentUser = cookies ? true : false
-    const [showDropdown, setShowDropdown] = useState(false)
+    console.log(cookies);
 
+    const [currentUser, setCurrentUser] = useState(false)
+    useEffect(() => {
+        cookies && cookies.user ? setCurrentUser(true) : setCurrentUser(false)
+    }, [cookies, cookies.user])
+
+    const router = useRouter()
+    const handleClickLogout = () => {
+        removeCookie("user")
+        router.push(`/`, undefined, {});
+    }
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
@@ -66,13 +81,6 @@ const Header: FC<HeaderProps> = ({ ...props }) => {
                                     <Button variant="outline-secondary" href="/signup" size="lg">Register</Button>
                                 </li>
                                 :
-                                // <li className={styles.user} id="dropdown-basic-button" title="Dropdown button" onClick={() => setShowDropdown(!showDropdown)}>
-                                //     <a>
-                                //         <span>
-                                //             <Image src={images.user} alt="user image" />
-                                //         </span>
-                                //     </a>
-                                // </li>
                                 <>
                                     <Dropdown>
                                         <Dropdown.Toggle as={User} id="dropdown-custom-components">
@@ -84,10 +92,10 @@ const Header: FC<HeaderProps> = ({ ...props }) => {
                                         </Dropdown.Toggle>
 
                                         <Dropdown.Menu>
-                                            <Dropdown.Item href="#/action-1">Action</Dropdown.Item>
-                                            <Dropdown.Item href="#/action-2">Another action</Dropdown.Item>
+                                            <Dropdown.Item href="/history">History</Dropdown.Item>
+                                            <Dropdown.Item href="/profile">Profile</Dropdown.Item>
                                             <Dropdown.Divider />
-                                            <Dropdown.Item href="#/action-3">Log out</Dropdown.Item>
+                                            <Dropdown.Item onClick={handleClickLogout}>Log out</Dropdown.Item>
                                         </Dropdown.Menu>
                                     </Dropdown></>
                         }

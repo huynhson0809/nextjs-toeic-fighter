@@ -17,7 +17,7 @@ export interface CardFeatureProps {
 
 const CardFeature: FC<CardFeatureProps> = ({ ...props }) => {
     const {
-        icon = <FontAwesomeIcon icon={faUser} />,
+        icon = faUser,
         title = "Accessible",
         des = "Chakra UI strictly follows WAI-ARIA standards for all components.",
     } = props;
@@ -25,10 +25,10 @@ const CardFeature: FC<CardFeatureProps> = ({ ...props }) => {
     return (
         <div className={styles.expItem}>
             <div className={styles.icon}>
-                <FontAwesomeIcon icon={faUser} />
+                <FontAwesomeIcon icon={icon} />
             </div>
-            <h3>Accessible</h3>
-            <p>Chakra UI strictly follows WAI-ARIA standards for all components.</p>
+            <h3>{title}</h3>
+            <p>{des}</p>
         </div>
     );
 };

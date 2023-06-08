@@ -11,6 +11,7 @@ import { faBan, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faFlag } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 const Result = () => {
 
     const title = "ETS TOEIC 2022 Test 1";
@@ -18,10 +19,11 @@ const Result = () => {
     const { numpart, partId } = router.query
 
     const [result, setResult] = useState<any>();
+    const [cookies, setCookie, removeCookie] = useCookies(["idMiniTest"]);
     useEffect(() => {
-        if (numpart && partId) {
+        if (cookies.idMiniTest) {
             axios
-                .get(`/api/tests/full-test/result/part${numpart}/${partId}`, {
+                .get(`/api/tests/skill-test/result/${cookies.idMiniTest}`, {
                     headers: {
                         accept: "*/*",
                         "Content-Type": "*/*",
@@ -34,7 +36,7 @@ const Result = () => {
                     console.log(err);
                 });
         }
-    }, [numpart, partId]);
+    }, [cookies.idMiniTest]);
 
     const handleClickDetail = () => {
         router.push(`/minitest/${numpart}/${partId}/result/detail`);

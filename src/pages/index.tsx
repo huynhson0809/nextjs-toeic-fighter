@@ -3,11 +3,10 @@ import Image from 'next/image'
 import styles from '@/styles/Home.module.scss'
 import { Layout } from "antd";
 import { Button, Col, Container, Row } from 'react-bootstrap';
-import { motion } from "framer-motion";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { CardFeature, CardFeedback } from '@/components/ui';
 import Masonry from 'react-masonry-css';
+import Link from 'next/link';
+import { faBook, faCheck, faClockRotateLeft, faGaugeSimple, faGraduationCap, faPen } from '@fortawesome/free-solid-svg-icons';
 
 
 export default function Home() {
@@ -17,10 +16,9 @@ export default function Home() {
       name: "Huynh Ngoc Son",
       username: "huynhson89",
       time: "Sep 4, 2019",
-      feedback: `<p>People throw React component libraries and design systems at me regularly. <br></br>
-      This might be the best one I've seen. The APIs are simple but composable and the accessibility on the couple components I looked is complete. <br></br>
-      Great work @thesegunadebayo, really inspiring work<br></br>
-      </p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
     {
@@ -28,8 +26,9 @@ export default function Home() {
       name: "Huynh Ngoc Lam",
       username: "huynhson89",
       time: "Sep 4, 2019",
-      feedback: `<p>Chakra UI has become part of our default stack for React apps, and we're happy to help sponsor the project. <br></br>
-      Chakra saves our team tons of time, is well designed and documented, has solid accessibility defaults, and looks great out of the box.</p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
     {
@@ -37,9 +36,9 @@ export default function Home() {
       name: "Huynh Huy Hoang",
       username: "huyhoang34",
       time: "Sep 4, 2034",
-      feedback: `<p>I've just become a sponsor of @thesegunadebayo's Chakra UI. <br></br>
-      It is a really nice React component library that's properly open source (MIT). <br></br>
-      https://chakra-ui.com You should check it out!</p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
     {
@@ -47,10 +46,9 @@ export default function Home() {
       name: "Huynh Ngoc Son",
       username: "huynhson89",
       time: "Sep 4, 2019",
-      feedback: `<p>People throw React component libraries and design systems at me regularly. <br></br>
-      This might be the best one I've seen. The APIs are simple but composable and the accessibility on the couple components I looked is complete. <br></br>
-      Great work @thesegunadebayo, really inspiring work<br></br>
-      </p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
     {
@@ -58,8 +56,9 @@ export default function Home() {
       name: "Huynh Ngoc Lam",
       username: "huynhson89",
       time: "Sep 4, 2019",
-      feedback: `<p>Chakra UI has become part of our default stack for React apps, and we're happy to help sponsor the project. <br></br>
-      Chakra saves our team tons of time, is well designed and documented, has solid accessibility defaults, and looks great out of the box.</p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
     {
@@ -67,9 +66,9 @@ export default function Home() {
       name: "Huynh Huy Hoang",
       username: "huyhoang34",
       time: "Sep 4, 2034",
-      feedback: `<p>I've just become a sponsor of @thesegunadebayo's Chakra UI. <br></br>
-      It is a really nice React component library that's properly open source (MIT). <br></br>
-      https://chakra-ui.com You should check it out!</p>`
+      feedback: `<p>Thanks to Toeic Fighter, my TOEIC score increased from 500 to 900 in just 2 months of practice. <br>
+Thank you Toeic Fighter team for creating a professional mock test environment like a real exam <br>
+for me to achieve my goals.</p>`
 
     },
   ]
@@ -91,7 +90,7 @@ export default function Home() {
                   <h2>
                     Let&apos;s Study Together
                   </h2>
-                  <a href="/login">Get Started</a>
+                  <Link href="/login">Get Started</Link>
                 </div>
               </Col>
             </Row>
@@ -102,29 +101,38 @@ export default function Home() {
             <Row>
               <Col sm={12}>
                 <div className={styles.exp}>
-                  <h2 >An experience you&apos;d expect from a design system</h2>
-                  <p>Opinionated and designed for daily use.</p>
+                  <h2 >Outstanding features of the site</h2>
+                  <p>Here are the salient features of the website</p>
                 </div>
               </Col>
             </Row>
             <Row>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faBook} title="Test bank" des="Copious practice tests and mock 
+                tests assist you in flexibly mastering the test with diverse topics and in different 
+                areas" />
               </Col>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faGraduationCap} title="Actual exam simulation"
+                  des="The same format of practice test as the actual test will be such an advantage 
+                for you to ace the exam successfully."/>
               </Col>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faCheck} title="Detailed Result Statistics"
+                  des="Once finishing each practice test, you will be provided with detailed result statistics 
+                that show your learning progress."/>
               </Col>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faPen} title="Easy-to-see interface"
+                  des="The website provides a clear and scientific interface to help students do the test easily and quickly." />
               </Col>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faGaugeSimple} title="Fast processing speed"
+                  des="Fast processing speed makes it easy for students to take the test" />
               </Col>
               <Col sm={4} style={{ marginBottom: "20px" }}>
-                <CardFeature />
+                <CardFeature icon={faClockRotateLeft} title="Save work history"
+                  des="Record your work history to make it easy for students to see their progress" />
               </Col>
             </Row>
           </Container>
@@ -133,10 +141,15 @@ export default function Home() {
         <section className={styles.feedback}>
           <div className={styles.fbWrapper}>
             <div className={styles.fbInner}>
-              <h2>Loved by product people like you</h2>
+              <h2>Happy Customers Are Our True Wealth</h2>
               <div className={styles.fbContent}>
                 <Masonry
-                  breakpointCols={3}
+                  breakpointCols={{
+                    default: 4,
+                    1100: 3,
+                    700: 2,
+                    500: 1
+                  }}
                   className="my-masonry-grid"
                   columnClassName="my-masonry-grid_column">
                   {
@@ -146,7 +159,6 @@ export default function Home() {
                       )
                     })
                   }
-
                 </Masonry>
               </div>
             </div>

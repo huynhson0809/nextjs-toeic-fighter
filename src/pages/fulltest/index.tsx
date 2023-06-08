@@ -11,6 +11,8 @@ const FullTest = () => {
         axios
             .get("/api/tests/full-test")
             .then((response) => {
+                console.log(response.data);
+
                 setFullTest(response.data.data);
             })
             .catch((err) => {
@@ -19,6 +21,7 @@ const FullTest = () => {
     }, []);
     return (
         <Container fluid="md" style={{ marginTop: "20px" }}>
+            <h2 className="title-list-test">List FullTest</h2>
             <Row>
                 {fullTest &&
                     fullTest.length > 0 &&

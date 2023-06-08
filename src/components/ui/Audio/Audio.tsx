@@ -12,9 +12,10 @@ export interface AudioProps {
   source?: string
 }
 
+// source = "https://study4.com/media/tez_media1/sound/ets_toeic_2022_test_2_32_34.mp3",
 const Audio: FC<AudioProps> = ({ ...props }) => {
   const {
-    source = "https://study4.com/media/tez_media1/sound/ets_toeic_2022_test_2_32_34.mp3",
+    source = "https://www.123rf.com/audio_162966724_you-walk-in-the-english-countryside-where-you-are-next-to-miss-marple-morse-or-barnaby-in-an-investi.html"
   } = props;
   const [progress, setProgress] = useState(0);
   const [volume, setVolume] = useState(50);

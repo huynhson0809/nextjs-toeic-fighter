@@ -11,18 +11,20 @@ import { faBan, faCheck, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { faFlag } from "@fortawesome/free-regular-svg-icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 const Result = () => {
 
     const title = "ETS TOEIC 2022 Test 1";
     const router = useRouter();
     const { asPath } = router
     const { fulltestId } = router.query
+    const [cookies, setCookie, removeCookie] = useCookies(["idFullTest"]);
 
     const [result, setResult] = useState<any>();
     useEffect(() => {
-        if (fulltestId) {
+        if (cookies) {
             axios
-                .get(`/api/tests/full-test/result/${fulltestId}`, {
+                .get(`/api/tests/full-test/result/${cookies.idFullTest}`, {
                     headers: {
                         accept: "*/*",
                         "Content-Type": "*/*",
@@ -63,7 +65,7 @@ const Result = () => {
                                 <span>Kết quả làm bài</span>
                                 <span>
                                     {result?.totalCorrect} /{" "}
-                                    {result?.totalCorrect + result?.totalIncorrect || 200}
+                                    {result?.totalCorrect + result?.totalIncorrect + result?.totalSkipped || 200}
                                 </span>
                             </div>
                             <div className={styles.statusPercent}>

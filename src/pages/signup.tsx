@@ -11,6 +11,7 @@ const Signup = () => {
     const [email, setEmail] = useState("")
     const [showErrorEmail, setShowErrorEmail] = useState(false)
     const [isSuccess, setIsSuccess] = useState(false)
+    const [errorMessage, setErrorMessage] = useState<string>()
     const router = useRouter();
     const handleChangeEmail = (e: any) => {
         const newEmail = e.target.value
@@ -32,10 +33,14 @@ const Signup = () => {
                 })
                 .catch(err => {
                     console.log('error in request', err);
+                    // console.log(err.response?.data?.message);
+                    setErrorMessage(err.response?.data?.message)
+                    setShowErrorEmail(true)
                 });
             // setIsSuccess(true)
         } else {
             setShowErrorEmail(true)
+            setErrorMessage("")
         }
     }
     return (
@@ -51,7 +56,8 @@ const Signup = () => {
                                     </Link>
                                 </h1>
                                 <div className='login-sc-title'>Activation link have been sent</div>
-                                <div>Activation link have been sent to your email address. To start using Pomofocus, please activate your account from the link.</div>
+                                <div className='login-nof-success'>Activation link have been sent to your email address. To start using Pomofocus, please activate your account from the link.</div>
+                                <Button href="/login" size="lg" variant='primary'>Go to Login</Button>
                             </div> :
                             <div className='login-content'>
                                 <h1 className='logo'>
@@ -64,7 +70,7 @@ const Signup = () => {
                                     <div className='login-label '>Email</div>
                                     <input placeholder='example@mail.com' value={email} onChange={handleChangeEmail} />
                                     {
-                                        showErrorEmail ? <p>Please input valid email</p> :
+                                        showErrorEmail ? errorMessage ? <p>{errorMessage}</p> : <p>Please input valid email</p> :
                                             <>
                                             </>
                                     }

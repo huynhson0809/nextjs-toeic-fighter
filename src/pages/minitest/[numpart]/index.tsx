@@ -10,20 +10,18 @@ const ChooseMiniTest = () => {
 
     const router = useRouter()
     const { numpart } = router.query
-    console.log(numpart);
-
+    const [miniTest, setMiniTest] = useState([]);
 
     const handleClickChooseMiniTest = (id: number) => {
         router.push(`/minitest/${numpart}/${id}/start`);
     };
 
-    const [miniTest, setMiniTest] = useState([]);
     useEffect(() => {
         if (numpart) {
             axios
                 .get(`/api/tests/skill-test/part${numpart}`)
                 .then((response) => {
-                    console.log(response.data.data);
+                    console.log(response.data);
                     setMiniTest(response.data.data);
                 })
                 .catch((err) => {
@@ -32,7 +30,7 @@ const ChooseMiniTest = () => {
                 })
         }
     }, [numpart]);
-    console.log(miniTest);
+
 
     return (
         <Container>

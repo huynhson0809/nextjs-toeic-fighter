@@ -24,7 +24,6 @@
     "eslint": "8.40.0",
     "eslint-config-next": "13.4.2",
     "file-loader": "^6.2.0",
-    "framer-motion": "^10.12.12",
     "lodash": "^4.17.21",
     "next": "13.4.2",
     "normalize.css": "^8.0.1",

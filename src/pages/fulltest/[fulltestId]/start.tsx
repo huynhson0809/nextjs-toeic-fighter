@@ -17,12 +17,13 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 import axios from "axios";
 import { useRouter } from "next/router";
+import { useCookies } from "react-cookie";
 const DoFullTest = () => {
     const router = useRouter()
     const { fulltestId } = router.query
 
     const [title, setTitle] = useState()
-    const [listParts, setListParts] = useState([]);
+    const [listParts, setListParts] = useState<any>([]);
     const [listResult, setListResult] = useState([]);
     const [tabIndex, setTabIndex] = useState(0);
     const [isTimeup, setIsTimeup] = useState(false);
@@ -30,6 +31,15 @@ const DoFullTest = () => {
     const timeStart = useRef<any>();
     const timeEnd = useRef<any>();
     const timer = useRef<any>(0);
+    const [cookies, setCookie, removeCookie] = useCookies(["idFullTest", "user"]);
+
+    // useEffect(() => {
+    //     const userId = cookies.user?.userId
+    //     if (!userId) {
+    //         router.push('/login')
+    //     }
+    //     // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, [])
 
     useEffect(() => {
         timeStart.current = new Date().toUTCString();
@@ -57,28 +67,29 @@ const DoFullTest = () => {
 
     const handleClickSubmit = async () => {
         if (window.confirm("Bạn có chắc chắn muốn nộp bài?") === true) {
+            const userId = cookies.user?.userId
             timeEnd.current = new Date().toUTCString();
             const dataSubmit = {
-                type: "fulltest",
-                idTest: 1,
+                type: "FULL_TEST",
+                idTest: fulltestId,
                 userResult: listResult,
                 timeStart: timeStart.current,
                 timeEnd: timeEnd.current,
             };
             await axios
                 .post(
-                    `/api/tests/full-test/result/${fulltestId}`,
+                    `/api/tests/result/${userId}`,
                     dataSubmit
-                    // {
-                    //   headers: {
-                    //     accept: "*/*",
-                    //     "Content-Type": "*/*",
-                    //   },
-                    // }
                 )
                 .then((res) => {
                     console.log("res", res.data);
-                    router.push(`/fulltest/${fulltestId}/result`);
+                    if (res.data.statusCode !== 500) {
+                        router.push(`/fulltest/${fulltestId}/result`);
+                        if (cookies.idFullTest) {
+                            removeCookie("idFullTest");
+                        }
+                        setCookie("idFullTest", res.data.testId);
+                    }
                 })
                 .catch((err) => {
                     console.log("error in request", err);
@@ -118,90 +129,103 @@ const DoFullTest = () => {
 
     return (
         <Container fluid>
-            <div className={styles.heading}>
-                <h2>{title}</h2>
-                <Button variant="outline-primary" onClick={handleClickExit}>
-                    Thoát
-                </Button>
-            </div>
+            <Row>
+                <Col sm={12}>
+                    <div className={styles.heading}>
+                        <h2>{title}</h2>
+                        <Button variant="outline-primary" onClick={handleClickExit}>
+                            Thoát
+                        </Button>
+                    </div>
+                </Col>
+            </Row>
             <div className={styles.testWrapper}>
-                <div className={styles.testContent}>
-                    <Audio />
-                    <div className={styles.nav}>
-                        <Tabs selectedIndex={tabIndex} onSelect={(i) => handleSelectTab(i)}>
-                            <TabList>
-                                {listParts &&
-                                    listParts.length > 0 &&
-                                    listParts.map((item: any, index: number) => {
-                                        return (
-                                            <Tab key={item.id} className={styles.itemLink}>
-                                                {item?.name}
-                                            </Tab>
-                                        );
-                                    })}
-                            </TabList>
-                            {
-                                listParts && listParts.length > 0 && listParts.map((item: any, index: number) => {
-                                    return (
-                                        <TabPanel key={index}>
-                                            <div className={styles.content}>
-                                                {/* <QuestionGroup data={listParts[6]} /> */}
-                                                <QuestionGroup
-                                                    part={item?.name}
+                <Row>
+                    <Col sm={9} md={10}>
+                        <div className={styles.testContent}>
+                            <Audio
+                                source={
+                                    listParts[0]?.partQuestions[0]?.questions[0]?.assets[1]?.url
+                                }
+                            />
+                            <div className={styles.nav}>
+                                <Tabs selectedIndex={tabIndex} onSelect={(i) => handleSelectTab(i)}>
+                                    <TabList>
+                                        {listParts &&
+                                            listParts.map((item: any, index: number) => {
+                                                return (
+                                                    <Tab key={`${item.id} + ${index}`} className={styles.itemLink}>
+                                                        {item?.name}
+                                                    </Tab>
+                                                );
+                                            })}
+                                    </TabList>
+                                    {
+                                        listParts && listParts.length > 0 && listParts.map((item: any, index: number) => {
+                                            return (
+                                                <TabPanel key={`${item.id} + ${index}`} >
+                                                    <div className={styles.content}>
+                                                        {/* <QuestionGroup data={listParts[6]} /> */}
+                                                        <QuestionGroup
+                                                            part={item?.name}
+                                                            data={
+                                                                handleDataQuestionGroup(item)
+                                                            }
+                                                            isTwoCols={
+                                                                item?.name === "Part 6" || item?.name === "Part 7"
+                                                                    ? true
+                                                                    : false
+                                                            }
+                                                            listResult={listResult}
+                                                            onSetListResult={setListResult}
+                                                            isFullTest={true}
+                                                            // isFullTest={false}
+                                                            indexTab={tabIndex}
+                                                            onSelectTab={handleSelectTab}
+                                                            isTimeup={isTimeup}
+                                                        />
+                                                    </div>
+                                                </TabPanel>
+                                            )
+                                        })
+                                    }
+                                </Tabs>
+                            </div>
+                        </div>
+                    </Col>
+                    <Col sm={3} md={2}>
+                        <div className={styles.naviWrapper}>
+                            <div className={styles.naviInner}>
+                                <div className={styles.navMain}>
+                                    <div>Thời gian còn lại:</div>
+                                    <CountDownTimer onComplete={handleTimeup} timer={timer.current} milliseconds={7200000} />
+                                    <Button
+                                        variant="outline-primary"
+                                        size="lg"
+                                        onClick={handleClickSubmit}
+                                    >
+                                        {" "}
+                                        NỘP BÀI
+                                    </Button>
+                                    {
+                                        listParts && listParts.length > 0 && listParts.map((item: any, index: number) => {
+                                            return (
+                                                <ListPart
+                                                    key={`${item.id} + ${index}`}
                                                     data={
                                                         handleDataQuestionGroup(item)
                                                     }
-                                                    isTwoCols={
-                                                        item?.name === "Part 6" || item?.name === "Part 7"
-                                                            ? true
-                                                            : false
-                                                    }
-                                                    listResult={listResult}
-                                                    onSetListResult={setListResult}
-                                                    isFullTest={true}
-                                                    // isFullTest={false}
-                                                    indexTab={tabIndex}
-                                                    onSelectTab={handleSelectTab}
-                                                    isTimeup={isTimeup}
+                                                    title={item?.name}
+                                                    listRes={listResult}
                                                 />
-                                            </div>
-                                        </TabPanel>
-                                    )
-                                })
-                            }
-                        </Tabs>
-                    </div>
-                </div>
-                <div className={styles.naviWrapper}>
-                    <div className={styles.naviInner}>
-                        <div className={styles.navMain}>
-                            <div>Thời gian còn lại:</div>
-                            <CountDownTimer onComplete={handleTimeup} timer={timer.current} milliseconds={7200000} />
-                            <Button
-                                variant="outline-primary"
-                                size="lg"
-                                onClick={handleClickSubmit}
-                            >
-                                {" "}
-                                NỘP BÀI
-                            </Button>
-                            {
-                                listParts && listParts.length > 0 && listParts.map((item: any, index: number) => {
-                                    return (
-                                        <ListPart
-                                            key={index}
-                                            data={
-                                                handleDataQuestionGroup(item)
-                                            }
-                                            title={item?.name}
-                                            listRes={listResult}
-                                        />
-                                    )
-                                })
-                            }
+                                            )
+                                        })
+                                    }
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </Col>
+                </Row>
             </div>
         </Container>
     );

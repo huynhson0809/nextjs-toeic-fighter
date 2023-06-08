@@ -16,18 +16,18 @@ import {
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
+import { useCookies } from "react-cookie";
 const ResultDetail = () => {
     const router = useRouter();
     const { fulltestId } = router.query
 
     const [title, setTitle] = useState()
-    const [listParts, setListParts] = useState([]);
+    const [listParts, setListParts] = useState<any>([]);
     const [resultDetail, setResultDetail] = useState([]);
     const [listResult, setListResult] = useState([]);
     const [tabIndex, setTabIndex] = useState(0);
     const [isTimeup, setIsTimeup] = useState(true);
-
-    const timer = useRef(0);
+    const [cookies, setCookie, removeCookie] = useCookies(["idFullTest"]);
 
     useEffect(() => {
         if (fulltestId) {
@@ -46,24 +46,26 @@ const ResultDetail = () => {
                 .catch((err) => {
                     console.log(err);
                 });
-            axios
-                .get(`/api/tests/full-test/result/${fulltestId}/detail`, {
-                    headers: {
-                        accept: "application/json",
-                        "Content-Type": "application/json",
-                    },
-                })
-                .then((response) => {
-                    const userRes = response.data.data?.cleanedDataPartsInResult;
-                    const resDetail = response.data.data?.cleanedDataResultDetail;
-                    setListResult(userRes);
-                    setResultDetail(resDetail);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
+            if (cookies) {
+                axios
+                    .get(`/api/tests/full-test/result/${cookies.idFullTest}/detail`, {
+                        headers: {
+                            accept: "application/json",
+                            "Content-Type": "application/json",
+                        },
+                    })
+                    .then((response) => {
+                        const userRes = response.data.data?.studentAnswer;
+                        const resDetail = response.data.data?.answer;
+                        setListResult(userRes);
+                        setResultDetail(resDetail);
+                    })
+                    .catch((err) => {
+                        console.log(err);
+                    });
+            }
         }
-    }, [fulltestId]);
+    }, [cookies, fulltestId]);
 
     // useEffect(() => {
     //   console.log(111, listResult);
@@ -106,14 +108,18 @@ const ResultDetail = () => {
     return (
         <Container fluid>
             <div className={styles.heading}>
-                <h2>{title}</h2>
+                <h2 className="title-list-test">{title}</h2>
                 <Button variant="outline-primary" onClick={handleClickExit}>
                     Quay về trang kết quả
                 </Button>
             </div>
             <div className={styles.testWrapper}>
                 <div className={styles.testContent}>
-                    <Audio />
+                    <Audio
+                        source={
+                            listParts[0]?.partQuestions[0]?.questions[0]?.assets[1]?.url
+                        }
+                    />
                     <div className={styles.nav}>
                         <Tabs selectedIndex={tabIndex} onSelect={(i) => handleSelectTab(i)}>
                             <TabList>
